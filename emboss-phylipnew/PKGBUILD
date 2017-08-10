@@ -1,0 +1,25 @@
+# Maintainer: Fabian Klötzl <fabian-aur@kloetzl.info>
+pkgname=emboss-phylipnew
+pkgver=3.69.660
+pkgrel=1
+pkgdesc=" The PHYLIPNEW programs are EMBOSS conversions of the programs in Joe Felsenstein's PHYLIP package"
+url="http://emboss.sourceforge.net/apps/cvs/embassy/phylipnew/"
+license=("custom:Phylip")
+arch=("i686" "x86_64")
+source=("ftp://emboss.open-bio.org/pub/EMBOSS/PHYLIPNEW-${pkgver}.tar.gz")
+md5sums=('b7da94cc7c0f1f6791cd4312a64c225a')
+
+build() {
+	if [[ -d "$srcdir/PHYLIPNEW-3.69.650" ]];
+	then
+		mv "$srcdir/PHYLIPNEW-3.69.650" "$srcdir/PHYLIPNEW-${pkgver}"
+	fi
+    cd "$srcdir/PHYLIPNEW-${pkgver}/"
+    ./configure --prefix=/usr
+    make
+}
+
+package() {
+    cd "$srcdir/PHYLIPNEW-${pkgver}/"
+    make DESTDIR="${pkgdir}" install
+}
