@@ -1,0 +1,22 @@
+# Maintainer: Fabian Klötzl <fabian-aur@kloetzl.info>
+pkgname=kr
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="Efficient Estimation of Mutation Distances from Unaligned Genomes"
+url="http://guanine.evolbio.mpg.de/cgi-bin/kr2/kr.cgi.pl"
+license=("GPL3")
+depends=("gsl")
+arch=("x86_64")
+source=("http://guanine.evolbio.mpg.de/kr2/${pkgname}_${pkgver}.tgz")
+sha256sums=('ee901bdd3dce329c6478c552d4d2e80ace0139de224524c28aaf00e5d3a0a0fa')
+
+build() {
+	cd "Kr_${pkgver}/Src/Kr"
+	make -j1
+}
+
+package() {
+    cd "Kr_${pkgver}/Src/Kr"
+    install -D kr "${pkgdir}/usr/bin/kr"
+    install -D kr "${pkgdir}/usr/bin/kr64"
+}
