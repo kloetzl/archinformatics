@@ -1,0 +1,27 @@
+#!/bin/sh
+# phylip wrapper script
+# Copyright (C) Andreas Tille  BSD-2-Clause
+# https://anonscm.debian.org/cgit/debian-med/phylip.git/tree/debian/bin/phylip
+
+BINDIR=/usr/lib/phylip/bin
+
+if [ $# -lt 1 ] ; then
+    echo "Usage: $0 <program>" 1>&2
+    echo "  Existing programs are:"
+    ls ${BINDIR}
+    exit 1
+fi
+
+WRAPPER=$0
+PROGRAM=$1
+shift
+ARGS=$*
+
+if [ -x ${BINDIR}/${PROGRAM} ]; then
+    exec ${BINDIR}/${PROGRAM} ${ARGS}
+else
+    echo "Usage: ${PROGRAM} does not exist in Phylip"
+    echo "  Existing programs are:"
+    ls ${BINDIR}
+    exit 1
+fi
