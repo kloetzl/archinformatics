@@ -1,0 +1,21 @@
+From: =?utf-8?q?Fabian_Kl=C3=B6tzl?= <fabian@kloetzl.info>
+Date: Mon, 21 Dec 2015 13:37:33 +0100
+Subject: added headers for getpid(2)
+
+---
+ src/indelible.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/indelible.cpp b/src/indelible.cpp
+index 46de883..75ce82a 100644
+--- a/src/indelible.cpp
++++ b/src/indelible.cpp
+@@ -123,6 +123,8 @@ int inspinvcount, corepinvcount;
+ #include <sstream>
+ #include <algorithm>
+ #include <map>
++#include <sys/types.h>
++#include <unistd.h>
+ 
+ #ifdef WINDOWS
+ 	#include "windows.h"

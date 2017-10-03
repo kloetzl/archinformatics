@@ -1,0 +1,46 @@
+# Maintainer: Fabian Klötzl <fabian-aur@kloetzl.info>
+# The patches are from the debian package
+pkgname=indelible
+pkgver=1.03
+pkgrel=1
+pkgdesc=""
+url="http://abacus.gene.ucl.ac.uk/software/indelible/"
+license=("GPL3" "BSD")
+arch=("x86_64")
+source=("http://abacus.gene.ucl.ac.uk/software/indelible/EFBKqHdv0v7qir6CyeHgqaz/INDELibleV${pkgver}.tar.gz"
+	"0001-added-headers-for-getpid-2.patch"
+	"0002-added-documentation-index-page.patch"
+	"0003-added-manpage.patch"
+	"0004-added-auto-tools-build-system.patch"
+	"0005-remove-unnecessary-whitespace.patch"
+	"0006-spelling.patch"
+	)
+sha256sums=('bbbd7bcfb02ce2fadc977b977bfe0b21892b4ca2f82a9542291bbc1e3ee5c57d'
+	'31e74a071b260cded491840426a2ad141dbacb0783237de8a253a0e4a46dfd8d'
+	'2e42bfe77c39b6a857328715c1d91b46f4d0c11364062386ec77cc4d17085bc7'
+	'b63f09bfbc30afa5c7520f95a76de1250cbafd94534282d7946ec46a0f9e8267'
+	'5913d9a0f5d019447266f993c20df8d0cae40e23bf018cfc3e2e219842eba936'
+	'7e30e5fd3bff603d2f0107b0cf8509aa7189f8a77aee4ee427cb5bc741046bd2'
+	'7b3e357fb0f855bf9d3b909ff2d1e3c6ffa179eede4ff8aaf8384a1f634d4771'
+)
+
+prepare() {
+	# patch this thing
+	cd "INDELibleV${pkgver}/"
+	for p in ../*.patch; do
+		patch -N -p1 -i ../$p
+	done
+}
+
+build() {
+	cd "INDELibleV${pkgver}/"
+	autoreconf -fi
+	./configure
+	make
+}
+
+package() {
+	mkdir -p "${pkgdir}/usr/"{bin,share}
+	cd "INDELibleV${pkgver}/"
+	make prefix="${pkgdir}/usr/" install
+}
