@@ -1,0 +1,29 @@
+# Maintainer: Fabian Klötzl <fabian-aur@kloetzl.info>
+pkgname=mash
+pkgver=2.0
+pkgrel=1
+pkgdesc="Fast genome and metagenome distance estimation using MinHash"
+url="https://github.com/marbl/Mash/"
+license=("BSD")
+arch=("x86_64")
+makedepends=("capnproto")
+source=("https://github.com/marbl/Mash/archive/v${pkgver}.tar.gz" "dynamic-capnp.patch")
+sha256sums=('7bea8cd3c266640bbd97f2e1c9d0168892915c1c14f7d03a9751bf7a3709dd01'
+            '61cd860e66e57f6cc3dac317cb19665263aaa1de9b8c487cb9133ccde2388d92')
+
+prepare() {
+	cd "Mash-${pkgver}"
+	patch -R -p1 -i ../../dynamic-capnp.patch
+}
+
+build() {
+	cd "Mash-${pkgver}"
+	autoconf
+	./configure --prefix="${pkgdir}/usr" --with-capnp=/usr
+	make
+}
+
+package() {
+	cd "Mash-${pkgver}"
+	make install
+}
