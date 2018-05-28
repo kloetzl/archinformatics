@@ -3,8 +3,8 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 
 pkgname=phylip
-pkgver=3.696
-pkgrel=2
+pkgver=3.697
+pkgrel=1
 pkgdesc="A collection of programmes for evolutive genetics and inferring phylogenies"
 arch=('i686' 'x86_64')
 url="http://evolution.genetics.washington.edu/phylip.html"
@@ -12,7 +12,7 @@ source=("http://evolution.gs.washington.edu/phylip/download/phylip-$pkgver.tar.g
     'phylip')
 optdepends=('java-runtime')
 license=('custom')
-md5sums=('dbe5abc26f6089ead3dba41c2db526ee'
+md5sums=('0e83d17fb4d668213603c86bc21d9012'
          '3856209afc5198d66c8d87c0417b63b6')
 
 prepare() {
